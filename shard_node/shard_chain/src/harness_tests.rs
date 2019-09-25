@@ -50,12 +50,3 @@ fn advance_shard_slot() {
         harness.extend_shard_chain(1);
     }
 }
-
-fn load_file(filename: &str) -> Vec<u8> {
-    use std::fs::File;
-    use std::io::prelude::*;
-    let mut file = File::open(filename).expect("loading file failed");
-    let mut buf = Vec::new();
-    file.read_to_end(&mut buf).expect("reading file failed");
-    buf
-}
