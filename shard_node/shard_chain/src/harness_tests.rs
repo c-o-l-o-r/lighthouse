@@ -25,8 +25,6 @@ fn get_harness(
 
 #[test]
 fn advance_shard_slot() {
-    // let code = load_file("../../eth2/shard_state_processing/execution_environments/sheth.wasm");
-
     let harness = get_harness(VALIDATOR_COUNT);
     let num_blocks_produced =
         MinimalEthSpec::slots_per_epoch() * harness.beacon_spec.phase_1_fork_epoch;

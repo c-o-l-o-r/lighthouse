@@ -136,19 +136,18 @@ pub fn process_shard_block_body<T: ShardSpec>(
     state: &mut ShardState<T>,
     block: &ShardBlock,
 ) -> Result<(), Error> {
-    println!("{:?}", state.exec_env_states);
-
-    if block.body.len() == 0 {
-        return Ok(());
-    }
-
+    // For now, we're hard coding in our EE and it's initial state root.
+    let code = load_file("eth2/shard_state_processing/execution_environments/sheth.wasm");
     if state.exec_env_states.len() == 0 {
         let root = hex::decode("66cb173971c14df7f28bcb64e37d70c636db6a9a3ce36988359e05534f578052")
             .unwrap();
         state.exec_env_states.push(Hash256::from_slice(&root));
     }
+    // ---------------------
 
-    let code = load_file("../../eth2/shard_state_processing/execution_environments/sheth.wasm");
+    if block.body.len() == 0 {
+        return Ok(());
+    }
 
     let mut runtime = Runtime::new(
         &code,
